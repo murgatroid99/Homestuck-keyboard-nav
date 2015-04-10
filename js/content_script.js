@@ -1,13 +1,22 @@
 (function(){
   "use strict";
 
+  function pad6(intVal) {
+    var str = '' + intVal;
+    var pad = '000000';
+    return pad.substring(0, pad.length - str.length) + str;
+  }
+
   var pageNum, prev, next, nextPage, prevPage, comicNum;
+  var path = 'http://www.mspaintadventures.com/';
   if(!document.querySelector("embed")){
     pageNum = parseInt(/p=(\d+)/.exec(document.location.search)[1]);
     comicNum = parseInt(/s=(\d+)/.exec(document.location.search)[1]);
     prev = path + "?s=" + comicNum + "&p=" + pad6(pageNum - 1);
     next = path + "?s=" + comicNum + "&p=" + pad6(pageNum + 1);
-    nextPage;
+    nextPage = function(){
+      document.location = next;
+    };
     prevPage = function(){
       document.location = prev;
     };
