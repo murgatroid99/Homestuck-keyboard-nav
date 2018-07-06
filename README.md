@@ -2,14 +2,14 @@
 
 ## Installation
 
-This chrome extension can be installed [here](https://chrome.google.com/webstore/detail/homestuck-keyboard-naviga/icfppdnbakiampejgikedpidpnpcniga).
+This chrome extension is not yet available
 
 ## Usage
 
- - Right Arrow key: go to the next page
- - Left Arrow key: go to the previous page
- - L or Ctrl key: open or close a dialoglog
+ - Right Arrow key or ] : go to the next page
+ - Left Arrow key or [ : go to the previous page
+ - L, Ctrl, or Shift key: open or close a dialoglog
 
 ## Notes
 
-Arrow key navigation is disabled on flash pages because it interferes with playing the flash games.
+Arrow key navigation is disabled on flash pages because it interferes with playing the flash games, but bracket navigation is still available.
