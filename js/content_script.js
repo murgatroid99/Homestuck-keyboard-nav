@@ -1,57 +1,38 @@
 (function(){
   "use strict";
 
-  function pad6(intVal) {
-    var str = '' + intVal;
-    var pad = '000000';
-    return pad.substring(0, pad.length - str.length) + str;
-  }
-
-  var pageNum, prev, next, nextPage, prevPage, comicNum;
-  var path = 'http://www.mspaintadventures.com/';
-  if(!document.querySelector("embed")){
-    pageNum = parseInt(/p=(\d+)/.exec(document.location.search)[1]);
-    comicNum = parseInt(/s=(\d+)/.exec(document.location.search)[1]);
-    prev = path + "?s=" + comicNum + "&p=" + pad6(pageNum - 1);
-    next = path + "?s=" + comicNum + "&p=" + pad6(pageNum + 1);
-    nextPage = function(){
+  var pageNum, prev, next, chatButtons, gameButtons;
+  var path = 'https://www.homestuck.com/story/';
+  pageNum = parseInt((/\d+/).exec(window.location.pathname));
+  prev = path + (pageNum - 1);
+  next = path + (pageNum + 1);
+  function nextPage(usedArrowKey){
+    if (!(usedArrowKey && document.querySelector("embed"))){ //disables arrow key navigation on flash pages
       document.location = next;
-    };
-    prevPage = function(){
-      document.location = prev;
-    };
-    var link = document.querySelector('font[size="5"] a');
-    if(link){
-      nextPage = function(){
-        link.click();
-      };
-    } else {
-      nextPage = function(){
-        document.location = next;
-      }
-    }
-  } else {
-    prevPage = function(){};
-    nextPage = function(){};
-  }
-  
-  var buttons = document.getElementsByClassName('button');
-  var showButton = buttons[0];
-  var hideButton = buttons[1];
-  function toggleSpoiler(){
-    if(showButton.parentNode.style.display === "none"){
-      hideButton.click();
-    } else {
-      showButton.click();
     }
   };
+  function prevPage(usedArrowKey){
+    if (!(usedArrowKey && document.querySelector("embed"))){ //disables arrow key navigation on flash pages
+      document.location = prev;
+    }
+  };
+ 
+  
+  chatButtons = document.getElementsByClassName('o_chat-log-btn');
+  function toggleLog(){
+      chatButtons[0].click();
+  };
 
+  
   document.body.onkeydown = function(event){
     switch(event.keyCode){
-    case 17:
-    case 76: toggleSpoiler(); break;
-    case 39: nextPage(); break;
-    case 37: prevPage(); break;
+    case 16:  // shift
+    case 17:  // ctrl
+    case 76: toggleLog(); break;  // l
+    case 221: nextPage(false); break;  // ]
+    case 39: nextPage(true); break;  // right arrow
+    case 219: prevPage(false); break;  // [
+    case 37: prevPage(true); break;  //left arrow
     }
   };
 }());
