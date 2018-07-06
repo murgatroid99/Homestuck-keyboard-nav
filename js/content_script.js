@@ -1,7 +1,7 @@
 (function(){
   "use strict";
 
-  var pageNum, prev, next, chatButtons, gameButtons;
+  var pageNum, prev, next, chatButtons;
   var path = 'https://www.homestuck.com/story/';
   pageNum = parseInt((/\d+/).exec(window.location.pathname));
   prev = path + (pageNum - 1);
