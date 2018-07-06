@@ -1,10 +1,13 @@
 (function(){
   "use strict";
 
-  var pageNum, prev, next, chatButtons;
+  var pageNum, prev, next, chatButtons, gameButtons;
   var path = 'https://www.homestuck.com/story/';
   pageNum = parseInt((/\d+/).exec(window.location.pathname));
-  prev = path + (pageNum - 1);
+  if (!pageNum) {
+    pageNum = 1;
+  }
+  prev = path + Math.max(1, pageNum - 1);
   next = path + (pageNum + 1);
   function nextPage(usedArrowKey){
     if (!(usedArrowKey && document.querySelector("embed"))){ //disables arrow key navigation on flash pages
@@ -23,7 +26,6 @@
       chatButtons[0].click();
   };
 
-  
   document.body.onkeydown = function(event){
     switch(event.keyCode){
     case 16:  // shift
