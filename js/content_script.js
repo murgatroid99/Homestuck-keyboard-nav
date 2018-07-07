@@ -31,9 +31,9 @@
     case 16:  // shift
     case 17:  // ctrl
     case 76: toggleLog(); break;  // l
-    case 221: nextPage(false); break;  // ]
+    case 190: nextPage(false); break;  // .
     case 39: nextPage(true); break;  // right arrow
-    case 219: prevPage(false); break;  // [
+    case 188: prevPage(false); break;  // ,
     case 37: prevPage(true); break;  //left arrow
     }
   };
