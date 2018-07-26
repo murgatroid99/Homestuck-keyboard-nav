@@ -2,7 +2,7 @@
 
 ## Installation
 
-This chrome extension is not yet available
+This chrome extension can be installed [here](https://chrome.google.com/webstore/detail/homestuck-keyboard-naviga/icfppdnbakiampejgikedpidpnpcniga).
 
 ## Usage
 
