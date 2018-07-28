@@ -1,57 +1,99 @@
 (function(){
   "use strict";
 
-  function pad6(intVal) {
-    var str = '' + intVal;
-    var pad = '000000';
-    return pad.substring(0, pad.length - str.length) + str;
+  var pageNum, prev, next, chatButtons, nextPage, prevPage, navContainer, navLinks, navButton, nextPageElement;
+  var path = 'https://www.homestuck.com/story/';
+  pageNum = parseInt((/\d+/).exec(window.location.pathname));
+  if (!pageNum) {
+    pageNum = 1;
   }
+  prev = path + Math.max(1, pageNum - 1);
+  next = path + (pageNum + 1);
 
-  var pageNum, prev, next, nextPage, prevPage, comicNum;
-  var path = 'http://www.mspaintadventures.com/';
-  if(!document.querySelector("embed")){
-    pageNum = parseInt(/p=(\d+)/.exec(document.location.search)[1]);
-    comicNum = parseInt(/s=(\d+)/.exec(document.location.search)[1]);
-    prev = path + "?s=" + comicNum + "&p=" + pad6(pageNum - 1);
-    next = path + "?s=" + comicNum + "&p=" + pad6(pageNum + 1);
-    nextPage = function(){
+
+  navContainer = document.querySelector(".o_story-nav");
+  if (navContainer) {
+    navLinks = navContainer.querySelectorAll("a");
+    navButton = navContainer.querySelector("button"); // Pages with an "enter password" button instead of a link
+  }
+ 
+  if (navLinks && navLinks.length > 0) {
+    nextPageElement = navLinks[navLinks.length - 1]; // Ignores [??????] links
+  }
+  else if (navButton) {
+    nextPageElement = navButton; // Relevant on pages with a password input form instead of a link
+  }
+  else {}
+
+  // Forward navigation
+
+  // Disables arrow key navigation on Flash (Alterniabound) and HTML5 (Openbound) game pages, but allows "." navigation
+  if (document.querySelector("#o_flash-container") || document.querySelector("#JterniaDeploy")){   
+    nextPage = function(usedArrowKey) {
+      if (!usedArrowKey) {
+        if (nextPageElement) {
+          nextPageElement.click();
+        }
+        else {
+          document.location = next;
+        }
+      }
+    };
+  }
+  // Moves to the next sequential page on certain Select Your Character pages instead of clicking the "skip to end" link
+  else if (document.querySelector("canvas")) { 
+    nextPage = function(usedArrowKey) {
       document.location = next;
     };
-    prevPage = function(){
+  }
+  // A standard page or an "enter password" page.
+  // On a standard page, the "next" link is clicked. On an "enter password" page, the "Submit" button is clicked
+  else if (nextPageElement){ //
+    nextPage = function(usedArrowKey) {
+      nextPageElement.click();
+    };
+  }
+  // Pages with no "next" link and no "enter password" button to click, e.g. #4469
+  else {
+    nextPage = function(usedArrowKey) {
+      document.location = next;
+    };
+  }
+
+  // Backward navigation
+
+  // Disables arrow key navigation on Flash (Alterniabound) and HTML5 (Openbound) game pages, but allows "," navigation
+  if (document.querySelector("#o_flash-container") || document.querySelector("#JterniaDeploy")){   
+    prevPage = function(usedArrowKey) {
+      if (!usedArrowKey) {
+        document.location = prev;
+      }
+    };
+  }
+  // All other cases
+  else {
+    prevPage = function(usedArrowKey) {
       document.location = prev;
     };
-    var link = document.querySelector('font[size="5"] a');
-    if(link){
-      nextPage = function(){
-        link.click();
-      };
-    } else {
-      nextPage = function(){
-        document.location = next;
-      }
-    }
-  } else {
-    prevPage = function(){};
-    nextPage = function(){};
   }
-  
-  var buttons = document.getElementsByClassName('button');
-  var showButton = buttons[0];
-  var hideButton = buttons[1];
-  function toggleSpoiler(){
-    if(showButton.parentNode.style.display === "none"){
-      hideButton.click();
-    } else {
-      showButton.click();
+
+  // Opens chat logs  
+  chatButtons = document.getElementsByClassName('o_chat-log-btn');
+  function toggleLog(){
+    if (chatButtons && chatButtons.length > 0) {
+      chatButtons[0].click();
     }
   };
 
   document.body.onkeydown = function(event){
     switch(event.keyCode){
-    case 17:
-    case 76: toggleSpoiler(); break;
-    case 39: nextPage(); break;
-    case 37: prevPage(); break;
+    case 16:  // shift
+    case 17:  // ctrl
+    case 76: toggleLog(); break;  // l
+    case 190: nextPage(false); break;  // .
+    case 39: nextPage(true); break;  // right arrow
+    case 188: prevPage(false); break;  // ,
+    case 37: prevPage(true); break;  //left arrow
     }
   };
 }());

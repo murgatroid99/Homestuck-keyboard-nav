@@ -10,11 +10,11 @@
   },
   "content_scripts" : [
     {
-      "matches" : ["*://*.mspaintadventures.com/*"],
+      "matches" : ["*://*.homestuck.com/*"],
       "js" : ["js/content_script.js"]
     }
   ],
   "permissions" : [
-    "*://*.mspaintadventures.net/*"
+    "*://*.homestuck.com/*"
   ]
 }
