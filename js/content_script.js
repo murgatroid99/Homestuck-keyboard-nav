@@ -8,10 +8,16 @@
     pageNum = 1;
   }
   prev = path + Math.max(1, pageNum - 1);
-  next = path + (pageNum + 1);
+
+  var navContainer = document.querySelector(".o_story-nav");
+  var navLinks = navContainer.querySelectorAll("a");
+  var nextPageLink = navLinks[navLinks.length - 1]; // Deals with pages with a "[???????]" link before the next page link
+
   function nextPage(usedArrowKey){
     if (!(usedArrowKey && document.querySelector("embed"))){ //disables arrow key navigation on flash pages
-      document.location = next;
+	if (nextPageLink){
+	    nextPageLink.click();
+	}
     }
   };
   function prevPage(usedArrowKey){
