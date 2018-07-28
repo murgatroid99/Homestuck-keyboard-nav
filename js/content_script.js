@@ -12,7 +12,7 @@
 
 
   navContainer = document.querySelector(".o_story-nav");
-  if (navContainer) { // certain pages have no navigation link or button (e.g. #4469)
+  if (navContainer) {
     navLinks = navContainer.querySelectorAll("a");
     navButton = navContainer.querySelector("button"); // Pages with an "3NT3R P4SSWORD" button instead of a link
   }
@@ -41,18 +41,19 @@
       document.location = next;
     };
   }
-  // Pages with no "next" link and no "3NT3R P4SSWORD" button to click, usually with the "next" link embeded somewhere else
-  // This case should be synonymous with with the "flash game pages" case, but it is included for unforeseen exceptions
-  else if (!nextPageElement){ //
-    nextPage = function(usedArrowKey) {
-      document.location = next; 
-    };
-  }
   // All other cases, typically a standard page or an "3NT3R P4SSWORD" page.
   // On a standard page, the "next" link is clicked. On an "3NT3R P4SSWORD" page, the "Submit" button is clicked
-  else {
+  
+  else if (nextPageElement){ //
     nextPage = function(usedArrowKey) {
       nextPageElement.click();
+    };
+  }
+  // Pages with no "next" link and no "3NT3R P4SSWORD" button to click, e.g. #4469
+  // This case should be synonymous with with the "flash game pages" case, but it is included for unforeseen exceptions
+  else {
+    nextPage = function(usedArrowKey) {
+      document.location = next;
     };
   }
 
