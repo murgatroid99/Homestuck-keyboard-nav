@@ -49,7 +49,6 @@
     };
   }
   // Pages with no "next" link and no "enter password" button to click, e.g. #4469
-  // This case should be synonymous with with the "flash game pages" case, but it is included for unforeseen exceptions
   else {
     nextPage = function(usedArrowKey) {
       document.location = next;
