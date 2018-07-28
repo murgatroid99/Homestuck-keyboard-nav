@@ -77,7 +77,7 @@
   // Opens chat logs  
   chatButtons = document.getElementsByClassName('o_chat-log-btn');
   function toggleLog(){
-    if (chatButtons) {
+    if (chatButtons && chatButtons.length > 0) {
       chatButtons[0].click();
     }
   };
