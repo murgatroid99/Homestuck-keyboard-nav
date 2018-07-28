@@ -1,7 +1,7 @@
 (function(){
   "use strict";
 
-  var pageNum, prev, next, chatButtons;
+  var pageNum, prev, next, chatButtons, nextPage, prevPage, navContainer, navLinks, navButton, nextPageElement;
   var path = 'https://www.homestuck.com/story/';
   pageNum = parseInt((/\d+/).exec(window.location.pathname));
   if (!pageNum) {
@@ -11,20 +11,19 @@
   next = path + (pageNum + 1);
 
 
-  var navContainer = document.querySelector(".o_story-nav");
-  var navLinks = navContainer.querySelectorAll("a");
-  var navButton = navContainer.querySelector("button"); // Pages with an "3NT3R P4SSWORD" button instead of a link
-
-  var nextPageElement; 
-  if (navLinks) {
+  navContainer = document.querySelector(".o_story-nav");
+  if (navContainer) { // certain pages have no navigation link or button (e.g. #4469)
+    navLinks = navContainer.querySelectorAll("a");
+    navButton = navContainer.querySelector("button"); // Pages with an "3NT3R P4SSWORD" button instead of a link
+  }
+ 
+  if (navLinks && navLinks.length > 0) {
     nextPageElement = navLinks[navLinks.length - 1]; // Ignores [??????] links on retconned pages
   }
   else if (navButton) {
     nextPageElement = navButton; // Relevant on pages with a password input form instead of a link
   }
-  else {
-    nextPageElement = null;
-  }
+  else {}
 
   // Forward navigation
 
