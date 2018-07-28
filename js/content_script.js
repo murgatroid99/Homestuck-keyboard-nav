@@ -14,7 +14,7 @@
   navContainer = document.querySelector(".o_story-nav");
   if (navContainer) {
     navLinks = navContainer.querySelectorAll("a");
-    navButton = navContainer.querySelector("button"); // Pages with an "3NT3R P4SSWORD" button instead of a link
+    navButton = navContainer.querySelector("button"); // Pages with an "enter password" button instead of a link
   }
  
   if (navLinks && navLinks.length > 0) {
@@ -41,14 +41,14 @@
       document.location = next;
     };
   }
-  // A standard page or an "3NT3R P4SSWORD" page.
-  // On a standard page, the "next" link is clicked. On an "3NT3R P4SSWORD" page, the "Submit" button is clicked
+  // A standard page or an "enter password" page.
+  // On a standard page, the "next" link is clicked. On an "enter password" page, the "submit" button is clicked
   else if (nextPageElement){ //
     nextPage = function(usedArrowKey) {
       nextPageElement.click();
     };
   }
-  // Pages with no "next" link and no "3NT3R P4SSWORD" button to click, e.g. #4469
+  // Pages with no "next" link and no "enter password" button to click, e.g. #4469
   // This case should be synonymous with with the "flash game pages" case, but it is included for unforeseen exceptions
   else {
     nextPage = function(usedArrowKey) {
