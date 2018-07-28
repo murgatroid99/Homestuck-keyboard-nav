@@ -18,7 +18,7 @@
   }
  
   if (navLinks && navLinks.length > 0) {
-    nextPageElement = navLinks[navLinks.length - 1]; // Ignores [??????] links on retconned pages
+    nextPageElement = navLinks[navLinks.length - 1]; // Ignores [??????] links
   }
   else if (navButton) {
     nextPageElement = navButton; // Relevant on pages with a password input form instead of a link
@@ -41,9 +41,8 @@
       document.location = next;
     };
   }
-  // All other cases, typically a standard page or an "3NT3R P4SSWORD" page.
+  // A standard page or an "3NT3R P4SSWORD" page.
   // On a standard page, the "next" link is clicked. On an "3NT3R P4SSWORD" page, the "Submit" button is clicked
-  
   else if (nextPageElement){ //
     nextPage = function(usedArrowKey) {
       nextPageElement.click();
