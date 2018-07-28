@@ -27,22 +27,27 @@
 
   // Forward navigation
 
-  // Disables arrow key navigation on flash game pages, but allows "." navigation
-  if (document.querySelector("embed")){   
+  // Disables arrow key navigation on Flash (Alterniabound) and HTML5 (Openbound) game pages, but allows "." navigation
+  if (document.querySelector("#o_flash-container") || document.querySelector("#JterniaDeploy")){   
     nextPage = function(usedArrowKey) {
       if (!usedArrowKey) {
-        document.location = next;
+        if (nextPageElement) {
+          nextPageElement.click();
+        }
+        else {
+          document.location = next;
+        }
       }
     };
   }
-  // Moves to the next sequential page on Select Your Character pages instead of clicking the "skip to end" link
+  // Moves to the next sequential page on certain Select Your Character pages instead of clicking the "skip to end" link
   else if (document.querySelector("canvas")) { 
     nextPage = function(usedArrowKey) {
       document.location = next;
     };
   }
   // A standard page or an "enter password" page.
-  // On a standard page, the "next" link is clicked. On an "enter password" page, the "submit" button is clicked
+  // On a standard page, the "next" link is clicked. On an "enter password" page, the "Submit" button is clicked
   else if (nextPageElement){ //
     nextPage = function(usedArrowKey) {
       nextPageElement.click();
@@ -57,8 +62,8 @@
 
   // Backward navigation
 
-  // Disables arrow key navigation on flash game pages, but allows "," navigation
-  if (document.querySelector("embed")){   
+  // Disables arrow key navigation on Flash (Alterniabound) and HTML5 (Openbound) game pages, but allows "," navigation
+  if (document.querySelector("#o_flash-container") || document.querySelector("#JterniaDeploy")){   
     prevPage = function(usedArrowKey) {
       if (!usedArrowKey) {
         document.location = prev;
